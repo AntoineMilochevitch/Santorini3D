@@ -403,7 +403,7 @@ public class GameManager : MonoBehaviour
     {
         // Envoyer le mouvement du joueur 1 au serveur
         Vector2Int moveIndices = ConvertPositionToIndices(lastMovePosition);
-        pythonClient.SendMessageToServer($"MOVE {activePlayerMovement.name} {moveIndices.x} {moveIndices.z}");
+        pythonClient.SendMessageToServer($"MOVE {activePlayerMovement.name} {moveIndices.z} {moveIndices.x}");
         Debug.Log($"Sent MOVE {activePlayerMovement.name} {moveIndices.x} {moveIndices.z}");
 
         // Attendre que le mouvement soit complété
@@ -411,7 +411,7 @@ public class GameManager : MonoBehaviour
 
         // Envoyer la construction du joueur 1 au serveur
         Vector2Int buildIndices = ConvertPositionToIndices(lastBuildPosition);
-        pythonClient.SendMessageToServer($"BUILD {buildIndices.x} {buildIndices.z}");
+        pythonClient.SendMessageToServer($"BUILD {buildIndices.z} {buildIndices.x}");
         Debug.Log($"Sent BUILD {buildIndices.x} {buildIndices.z}");
 
         // Réinitialiser moveCompleted pour le prochain tour
@@ -440,10 +440,10 @@ public class GameManager : MonoBehaviour
             if (parts[0] == "AI" && parts[1] == "MOVE" && parts[5] == "BUILD")
             {
                 string pawnName = parts[2] == "1" ? "Perso1" : "Perso2";
-                int moveX = int.Parse(parts[3]);
-                int moveZ = int.Parse(parts[4]);
-                int buildX = int.Parse(parts[6]);
-                int buildZ = int.Parse(parts[7]);
+                int moveX = int.Parse(parts[4]);
+                int moveZ = int.Parse(parts[3]);
+                int buildX = int.Parse(parts[7]);
+                int buildZ = int.Parse(parts[6]);
 
                 //set pawn to false
                 foreach (Transform pawn in player2.transform)
